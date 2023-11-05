@@ -1,6 +1,13 @@
 version: '3.8'
 
 services:
+
+
+  redis:
+  # I'll also build a redis image, so it will be as a Message Broker for celery
+    image: redis:7.0.11-alpine
+
+
   django:
     container_name: django_celery_redis
       # Name of the container created
@@ -24,3 +31,7 @@ services:
       - DEBUG=1
       - SECRET_KEY=ALSKDKJASDKLAJSDKLJASDKJSAD
       - ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0
+    depends_on:
+    # Here, I set a dependency of redis, so this service will not be built,
+    # until redis image is finished building.
+      - redis
