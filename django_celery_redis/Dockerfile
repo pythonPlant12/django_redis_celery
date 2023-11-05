@@ -1,6 +1,6 @@
 # I recommend alpine to use for containerised environments as it is lightweight Linux
 # distribution and it is also focused on security 
-FROM --platform=linux/amd64  python:3.11.4-alpine
+FROM python:3.11.4-alpine
 
 # Defining a work directory inside the image
 WORKDIR /usr/src/app
@@ -26,4 +26,4 @@ COPY ./entrypoint.sh /usr/src/app/entrypoint.sh
 COPY . /usr/src/app/
 
 # I'll specify the path to the entrypoint file
-ENTRYPOINT "/usr/src/app/entrypoint.sh"
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]

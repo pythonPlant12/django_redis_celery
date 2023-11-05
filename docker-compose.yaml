@@ -23,4 +23,4 @@ services:
     # I set up an environmental variables
       - DEBUG=1
       - SECRET_KEY=ALSKDKJASDKLAJSDKLJASDKJSAD
-      - ALLOWED_HOSTS=localhost,127.0.0.1
+      - ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0

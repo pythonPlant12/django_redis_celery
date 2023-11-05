@@ -8,4 +8,4 @@ python manage.py migrate
 
 # This command is to execute all the commands inside of entrypoing
 # It is a common practise to add this line at the end of this file
-exec"$@"
+exec "$@"
