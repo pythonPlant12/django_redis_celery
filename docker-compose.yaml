@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  django:
+    container_name: django_celery_redis
+      # Name of the container created
+
+    build:
+      context: ./django_celery_redis
+      # The folder of the project, where the Dockerfile will be located
+      # with instructions of building
+      # I can also specify the path of the Dockerfile with other instructions, 
+      # but as I will call it Dockerfile, it will look in a context folder automatically
+
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+    # I set the mounted directory which will be copied to the image
+    # And also set the path to where it should be copied
+      - ./django_celery_redis:/usr/src/app/
+    ports:
+      - 8001:8000
+    environment:
+    # I set up an environmental variables
+      - DEBUG=1
+      - SECRET_KEY=ALSKDKJASDKLAJSDKLJASDKJSAD
+      - ALLOWED_HOSTS=localhost,127.0.0.1
