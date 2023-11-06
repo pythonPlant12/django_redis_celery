@@ -35,3 +35,28 @@ services:
     # Here, I set a dependency of redis, so this service will not be built,
     # until redis image is finished building.
       - redis
+
+
+  # There are multiple way to build a celery worker, 
+  # Sometimes it is a good approach to copy all the application of django 
+  # so Celery can have access to the application code in case it needes,
+  # but it is not always the case
+  # Most of the configurations are very similar to the django application.
+  # the only difference, I don't run COMMAND, we don't run a server here
+  # ---------------------------------------------------------------------
+  # Why I don't need to set ports on another services like redis or celery?
+  # Because in django app, I need to access to the app outside of container, 
+  # In case of Celery and Redis, as they are in the same Docker environment as 
+  # application and they can communicate internally.
+  celery:
+    container_name: celery
+    build:
+      context: ./django_celery_redis
+    volumes:
+      - ./django_celery_redis:/usr/src/app/
+    environment:
+      - DEBUG=1
+      - SECRET_KEY=ALSKDKJASDKLAJSDKLJASDKJSAD
+      - ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0
+    depends_on:
+      - redis

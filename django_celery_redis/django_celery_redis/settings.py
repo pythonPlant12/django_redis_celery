@@ -122,3 +122,17 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# I set a configuration for celery_broker_url with environmental variables, 
+# in a second parameter I define an Endpoint in case CELERY_BROKER variable is not 
+# found, with default redis port: 6379
+# first "redis://" is the Redis serialization protocol (in Web is like http://) it helps
+# with the "serialization"
+# This endpoint can be different if you are running Redis in different host machine
+# In my case, the second "redis" is the name of the service in docker-compose.yaml 
+# "celery"
+# The /0 number defines a database number or index running, as Redis allows to create 
+# multiple database on a single Redis instance, it can be from 0 to 15
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
+CELERY_RESULT_BACKEND = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
