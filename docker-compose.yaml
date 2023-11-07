@@ -52,6 +52,11 @@ services:
     container_name: celery
     build:
       context: ./django_celery_redis
+    # To get the celery worker active, I add a different command
+    # A specify a celery app as my app name, and add that it is worker
+    # I also specify a log level with -l INFO, which is normally used by default 
+    # (there are 5 different)
+    command: celery --app=django_celery_redis worker -l INFO
     volumes:
       - ./django_celery_redis:/usr/src/app/
     environment:
@@ -60,3 +65,5 @@ services:
       - ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0
     depends_on:
       - redis
+
+  
